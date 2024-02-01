@@ -1,5 +1,4 @@
 using MassTransit;
-using Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +11,16 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(config =>
 {
+    config.AddConsumer<OrderConsumer>();
+
     config.UsingRabbitMq((context, config) =>
     {
         config.Host("amqp://guest:guest@localhost:5672");
+
+        config.ReceiveEndpoint("order-queue", c =>
+        {
+            c.ConfigureConsumer<OrderConsumer>(context);
+        });
     });
 });
 
