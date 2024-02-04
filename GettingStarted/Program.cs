@@ -35,7 +35,7 @@ namespace GettingStarted
                         x.AddSagas(entryAssembly);
                         x.AddActivities(entryAssembly);
 
-                        x.UsingInMemory((context, cfg) =>
+                        x.UsingRabbitMq  ((context, cfg) =>
                         {
                             cfg.ConfigureEndpoints(context);
                         });
