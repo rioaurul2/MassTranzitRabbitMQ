@@ -31,7 +31,7 @@ namespace MassTransitIntro.Controllers
 
             return Ok(response.Message);
 
-            //minutul 20:57
+            //minutul 20:57 ghost push
         }
     }
 }
