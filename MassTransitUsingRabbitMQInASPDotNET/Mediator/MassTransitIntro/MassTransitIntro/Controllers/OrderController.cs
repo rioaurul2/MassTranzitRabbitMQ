@@ -22,16 +22,25 @@ namespace MassTransitIntro.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Guid id, string customerNumber)
         {
-            var response = await _submitOrderRequestClient.GetResponse<OrderSubmissionAccepted>(new
+            var (accepted, rejected) = await _submitOrderRequestClient.GetResponse<OrderSubmissionAccepted, OrderSubmissionRejected>(new
             {
                 OrderId = id,
                 InVar.Timestamp,
                 CustomerNumber = customerNumber
             });
 
-            return Ok(response.Message);
+            if(accepted.IsCompletedSuccessfully)
+            {
+                var response = await accepted;
 
-            //minutul 20:57 ghost push
+                return Accepted(response.Message);
+            }
+            else
+            {
+                var response = await rejected;
+
+                return BadRequest(response.Message);
+            }
         }
     }
 }

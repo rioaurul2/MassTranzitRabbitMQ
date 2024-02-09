@@ -16,6 +16,8 @@ namespace MassTransitIntro
             {
                 config.AddConsumer<SubmitOrderConsumer>();
 
+                config.AddMediator();
+
                 config.AddRequestClient<SubmitOrder>();
                 
             });
