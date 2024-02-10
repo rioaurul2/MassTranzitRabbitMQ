@@ -41,6 +41,7 @@ namespace MassTransitIntro.Controllers
 
                 return BadRequest(response.Message);
             }
+            //ghost
         }
     }
 }
